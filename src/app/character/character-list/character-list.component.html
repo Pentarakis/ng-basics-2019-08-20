@@ -20,4 +20,7 @@
   <strong>{{selectedCharacter?.name}}</strong>
 </p>
 
-<ngb-character></ngb-character>
+<ngb-character
+  [character]="selectedCharacter"
+  (characterSaved)="save($event)"
+></ngb-character>

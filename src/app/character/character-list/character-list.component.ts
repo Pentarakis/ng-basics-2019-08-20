@@ -20,4 +20,22 @@ export class CharacterListComponent implements OnInit {
   ngOnInit() {
   }
 
+  save(character: Character): void {
+    if (character.id) {
+      this.updateCharacter(character);
+    } else {
+      this.createCharacter(character);
+    }
+  }
+
+  private updateCharacter(character: Character) {
+    const index = character.id - 1;
+    this.characters[index] = character;
+  }
+
+  private createCharacter(character: Character) {
+    character.id = this.characters.length + 1;
+    this.characters.push(character);
+  }
+
 }

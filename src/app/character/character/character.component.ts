@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Character } from '../model/character';
 
 @Component({
@@ -8,12 +8,11 @@ import { Character } from '../model/character';
 })
 export class CharacterComponent implements OnInit {
 
-  characters: Character[] = [
-    {id: 1, name: 'Daenerys Targaryen', culture: 'Valyrian'},
-    {id: 2, name: 'Jon Snow', culture: 'Northmen'}
-  ];
+  @Input()
+  character: Character = new Character();
 
-  selectedCharacter: Character = new Character();
+  @Output()
+  characterSaved: EventEmitter<Character> = new EventEmitter();
 
   constructor() {
   }
@@ -22,11 +21,8 @@ export class CharacterComponent implements OnInit {
   }
 
   save(): void {
-    if (!this.selectedCharacter.id) {
-      this.selectedCharacter.id = this.characters.length + 1;
-    }
-    this.characters.push(this.selectedCharacter);
-    this.selectedCharacter = new Character();
+    this.characterSaved.emit(this.character);
+    this.character = new Character();
   }
 
 }

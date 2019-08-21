@@ -10,7 +10,7 @@
   <tr *ngFor="let character of characters"
       (click)="selectedCharacter = character">
     <td>{{character.id}}</td>
-    <td>{{character.name}}</td>
+    <td><a [routerLink]="[character.id]">{{character.name}}</a></td>
     <td>{{character.culture}}</td>
   </tr>
   </tbody>
@@ -19,8 +19,3 @@
 <p>
   <strong>{{selectedCharacter?.name}}</strong>
 </p>
-
-<ngb-character
-  [character]="selectedCharacter"
-  (characterSaved)="save($event)"
-></ngb-character>

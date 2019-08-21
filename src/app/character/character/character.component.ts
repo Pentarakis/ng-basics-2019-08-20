@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
 @Component({
@@ -8,16 +10,17 @@ import { Character } from '../model/character';
 })
 export class CharacterComponent implements OnInit {
 
-  @Input()
   character: Character = new Character();
 
-  @Output()
   characterSaved: EventEmitter<Character> = new EventEmitter();
 
-  constructor() {
+  constructor(private route: ActivatedRoute,
+              private characterService: CharacterService) {
   }
 
   ngOnInit() {
+    const id: string = this.route.snapshot.params.id;
+    this.character = this.characterService.read(Number(id));
   }
 
   save(): void {

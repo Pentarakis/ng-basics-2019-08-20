@@ -11,8 +11,8 @@ import { Character } from '../model/character';
 export class CharacterComponent implements OnInit {
 
   character: Character = new Character();
-
   characterSaved: EventEmitter<Character> = new EventEmitter();
+  isCreateMode = false;
 
   constructor(private route: ActivatedRoute,
               private characterService: CharacterService) {
@@ -20,11 +20,20 @@ export class CharacterComponent implements OnInit {
 
   ngOnInit() {
     const id: string = this.route.snapshot.params.id;
-    this.character = this.characterService.read(Number(id));
-  }
+
+    if (id === 'create') {
+      this.isCreateMode = true;
+    } else {
+      this.character = this.characterService.read(Number(id));
+    }
+   }
 
   save(): void {
-    this.characterSaved.emit(this.character);
+    if (this.isCreateMode) {
+      this.characterService.create(this.character);
+    } else {
+      this.characterService.update(this.character);
+    }
     this.character = new Character();
   }
 

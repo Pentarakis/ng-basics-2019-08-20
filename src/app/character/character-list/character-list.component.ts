@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
 @Component({
@@ -8,14 +9,12 @@ import { Character } from '../model/character';
 })
 export class CharacterListComponent implements OnInit {
 
-  characters: Character[] = [
-    {id: 1, name: 'Daenerys Targaryen', culture: 'Valyrian'},
-    {id: 2, name: 'Jon Snow', culture: 'Northmen'}
-  ];
-
   selectedCharacter: Character = new Character();
+  characters: Character[];
 
-  constructor() { }
+  constructor(private characterService: CharacterService) {
+    this.characters = this.characterService.readAll();
+  }
 
   ngOnInit() {
   }

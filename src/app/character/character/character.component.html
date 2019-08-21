@@ -1,1 +1,43 @@
-<p>character works!</p>
+<form>
+
+  <label>
+    Name:
+    <input name="name" [(ngModel)]="selectedCharacter.name">
+  </label>
+
+  <br>
+
+  <label>
+    Culture:
+    <input name="culture" [(ngModel)]="selectedCharacter.culture">
+  </label>
+
+  <div>
+    <button (click)="save()">Save</button>
+  </div>
+
+</form>
+
+<br>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Culture</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let character of characters"
+  (click)="selectedCharacter = character">
+    <td>{{character.id}}</td>
+    <td>{{character.name}}</td>
+    <td>{{character.culture}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>{{selectedCharacter?.name}}</strong>
+</p>

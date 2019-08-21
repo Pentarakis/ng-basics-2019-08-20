@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { CharacterRoutingModule } from './character-routing.module';
 import { CharacterComponent } from './character/character.component';
@@ -10,7 +11,8 @@ import { CharacterComponent } from './character/character.component';
   exports: [CharacterComponent],
   imports: [
     CommonModule,
-    CharacterRoutingModule
+    CharacterRoutingModule,
+    FormsModule
   ]
 })
 export class CharacterModule { }

@@ -26,17 +26,21 @@ export class CharacterComponent implements OnInit {
     } else {
 
       this.characterService.read(Number(id))
-      .subscribe(
-        (character: Character) => this.character = character
-      );
+        .subscribe(
+          (character: Character) => this.character = character
+        );
     }
-   }
+  }
 
   save(): void {
     if (this.isCreateMode) {
-      this.characterService.create(this.character);
+      this.characterService.create(this.character)
+        .subscribe(
+          (character: Character) => alert('Success! ID: ' + character.id)
+        );
     } else {
-      this.characterService.update(this.character);
+      this.characterService.update(this.character)
+        .subscribe(() => alert('success'));
     }
     this.router.navigate(['../'], {
       relativeTo: this.route

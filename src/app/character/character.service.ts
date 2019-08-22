@@ -17,25 +17,20 @@ export class CharacterService {
 
   constructor(private httpClient: HttpClient) { }
 
-  readAll(): Character[] {
-    return this.characters;
+  readAll(): Observable<Character[]> {
+    return this.httpClient.get<Character[]>(`${this.baseUrl}?_start=20&_end=120`);
   }
 
   read(id: number): Observable<Character> {
     return this.httpClient.get<Character>(`${this.baseUrl}/${id}`);
   }
 
-  create(character: Character): void {
-    character.id = this.characters.length + 1;
-    this.characters.push(character);
+  create(character: Character): Observable<Character> {
+    return this.httpClient.post<Character>(this.baseUrl, character);
   }
 
-  update(character: Character): void {
-    const index = this.characters.findIndex(
-      char => char.id === character.id
-    );
-    if (index >= 0) {
-      this.characters[index] = character;
-    }
+  update(character: Character): Observable<Character> {
+    return this.httpClient
+      .put<Character>(`${this.baseUrl}/${character.id}`, character);
   }
 }

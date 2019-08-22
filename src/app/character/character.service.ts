@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Character } from './model/character';
 
 @Injectable({
@@ -11,17 +13,16 @@ export class CharacterService {
     {id: 2, name: 'Jon Snow', culture: 'Northmen'}
   ];
 
-  constructor() { }
+  readonly baseUrl = 'http://localhost:3000/characters';
+
+  constructor(private httpClient: HttpClient) { }
 
   readAll(): Character[] {
     return this.characters;
   }
 
-  read(id: number): Character {
-    const result = this.characters.filter(
-      character => character.id === id
-    );
-    return result.length > 0 ?  result[0] : null;
+  read(id: number): Observable<Character> {
+    return this.httpClient.get<Character>(`${this.baseUrl}/${id}`);
   }
 
   create(character: Character): void {

@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,7 +17,8 @@ import { CharacterModule } from './character/character.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     BasicLayoutModule,
-    CharacterModule
+    CharacterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

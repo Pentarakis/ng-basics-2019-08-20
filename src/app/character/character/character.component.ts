@@ -24,7 +24,11 @@ export class CharacterComponent implements OnInit {
     if (id === 'create') {
       this.isCreateMode = true;
     } else {
-      this.character = this.characterService.read(Number(id));
+
+      this.characterService.read(Number(id))
+      .subscribe(
+        (character: Character) => this.character = character
+      );
     }
    }
 

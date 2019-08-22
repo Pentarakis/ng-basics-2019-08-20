@@ -1,0 +1,12 @@
+table {
+  min-width: 30em;
+
+  tr:hover {
+    background-color: #3f51b5;
+    cursor: pointer;
+
+    .mat-cell {
+      color: white;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
@@ -11,10 +11,10 @@ import { Character } from '../model/character';
 export class CharacterComponent implements OnInit {
 
   character: Character = new Character();
-  characterSaved: EventEmitter<Character> = new EventEmitter();
   isCreateMode = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private characterService: CharacterService) {
   }
 
@@ -34,7 +34,9 @@ export class CharacterComponent implements OnInit {
     } else {
       this.characterService.update(this.character);
     }
-    this.character = new Character();
+    this.router.navigate(['../'], {
+      relativeTo: this.route
+    });
   }
 
 }

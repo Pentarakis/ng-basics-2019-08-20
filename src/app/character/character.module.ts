@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatInputModule, MatTableModule } from '@angular/material';
 
 import { CharacterRoutingModule } from './character-routing.module';
 import { CharacterComponent } from './character/character.component';
@@ -15,7 +15,10 @@ import { CharacterListComponent } from './character-list/character-list.componen
     CommonModule,
     CharacterRoutingModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatTableModule
   ]
 })
 export class CharacterModule { }

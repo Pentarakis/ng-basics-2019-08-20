@@ -1,20 +1,32 @@
-<form *ngIf="character">
+<mat-card>
 
-  <label>
-    Name:
-    <input name="name" [(ngModel)]="character.name">
-  </label>
+  <mat-card-header>Edit Character</mat-card-header>
 
   <br>
 
-  <label>
-    Culture:
-    <input name="culture" [(ngModel)]="character.culture">
-  </label>
+  <mat-card-content>
+    <form *ngIf="character">
 
-  <div>
-    <button (click)="save()">Save</button>
-  </div>
+      <div>
+        <mat-form-field>
+          <input matInput name="name" [(ngModel)]="character.name" placeholder="Name">
+        </mat-form-field>
+      </div>
 
-</form>
+      <br>
+
+      <div>
+        <mat-form-field>
+          <input matInput name="culture" [(ngModel)]="character.culture" placeholder="Culture">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>
 

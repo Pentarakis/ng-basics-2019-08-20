@@ -5,11 +5,12 @@
   <br>
 
   <mat-card-content>
-    <form *ngIf="character">
+    <form *ngIf="form" [formGroup]="form">
 
       <div>
         <mat-form-field>
-          <input matInput name="name" [(ngModel)]="character.name" placeholder="Name">
+          <input matInput name="name" formControlName="name" placeholder="Name">
+          <mat-error *ngIf="form.get('name').hasError('required')">Required!</mat-error>
         </mat-form-field>
       </div>
 
@@ -17,7 +18,7 @@
 
       <div>
         <mat-form-field>
-          <input matInput name="culture" [(ngModel)]="character.culture" placeholder="Culture">
+          <input matInput name="culture" formControlName="culture" placeholder="Culture">
         </mat-form-field>
       </div>
 
@@ -26,7 +27,12 @@
       </div>
 
     </form>
+
+    <p><strong>{{getDate() | date : 'short'}}</strong></p>
+
   </mat-card-content>
 
 </mat-card>
+
+
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/internal/operators/filter';
@@ -13,16 +14,23 @@ import { Character } from '../model/character';
 })
 export class CharacterComponent implements OnInit, OnDestroy {
 
-  character: Character = new Character();
   isCreateMode = true;
   private destroy = new Subject<boolean>();
 
+  form: FormGroup;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private characterService: CharacterService) {
+              private characterService: CharacterService,
+              private fb: FormBuilder
+
+  ) {
   }
 
   ngOnInit() {
+
+    this.initForm();
+
     this.route.params
       .pipe(
         pluck('id'),
@@ -33,14 +41,18 @@ export class CharacterComponent implements OnInit, OnDestroy {
       .subscribe(
         (character: Character) => {
           this.isCreateMode = false;
-          this.character = character;
+          this.form.patchValue(character);
         }
       );
   }
 
   save(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     if (this.isCreateMode) {
-      this.characterService.create(this.character)
+      this.characterService.create(this.form.getRawValue())
         .pipe(
           filter(data => data !== null),
           takeUntil(this.destroy)
@@ -49,7 +61,7 @@ export class CharacterComponent implements OnInit, OnDestroy {
           (character: Character) => alert('Success! ID: ' + character.id)
         );
     } else {
-      this.characterService.update(this.character)
+      this.characterService.update(this.form.getRawValue())
         .pipe(
           filter(data => data !== null),
           takeUntil(this.destroy)
@@ -64,6 +76,18 @@ export class CharacterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next(true);
     this.destroy.complete();
+  }
+
+  getDate() {
+    return new Date();
+  }
+
+  private initForm(): void {
+    this.form = this.fb.group({
+      id: null,
+      name: [null, Validators.required],
+      culture: null
+    });
   }
 
 }

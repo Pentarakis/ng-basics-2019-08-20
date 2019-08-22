@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
@@ -10,7 +11,7 @@ import { Character } from '../model/character';
 })
 export class CharacterListComponent implements OnInit {
 
-  characters: Character[];
+  characters: Observable<Character[]>;
   displayColumns: string[]
     = ['id', 'name', 'culture'];
 
@@ -19,10 +20,7 @@ export class CharacterListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) {
 
-    this.characterService.readAll()
-    .subscribe(
-      (characters: Character[]) => this.characters = characters
-    );
+    this.characters = this.characterService.readAll();
   }
 
   ngOnInit() {
